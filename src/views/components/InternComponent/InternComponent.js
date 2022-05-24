@@ -1,100 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Table, Button, Tag, Space } from 'antd'
-
+import axios from 'axios'
 import AddInternModal from "./AddInternModal/AddInternModal"
 
 
 export default function InternComponent() {
-    const dataSource = [
-        {
-            key: '1',
-            name: 'Trí',
-            phone: '0901410230',
-            major: 'IT',
-            school_year: 3,
-            cv_file: 'abc.txt',
-            start_date: '1/1/2020',
-            end_date: '2/3/2020',
-            result: true,
-        },
-        {
-            key: '2',
-            name: 'Trí',
-            phone: '0901410230',
-            major: 'IT',
-            school_year: 3,
-            cv_file: 'abc.txt',
-            start_date: '1/1/2020',
-            end_date: '2/3/2020',
-            result: false,
-        },
-        {
-            key: '3',
-            name: 'Trí',
-            phone: '0901410230',
-            major: 'IT',
-            school_year: 3,
-            cv_file: 'abc.txt',
-            start_date: '1/1/2020',
-            end_date: '2/3/2020',
-            result: false,
-        },
-        {
-            key: '4',
-            name: 'Trí',
-            phone: '0901410230',
-            major: 'IT',
-            school_year: 3,
-            cv_file: 'abc.txt',
-            start_date: '1/1/2020',
-            end_date: '2/3/2020',
-            result: false,
-        },
-        {
-            key: '5',
-            name: 'Trí',
-            phone: '0901410230',
-            major: 'IT',
-            school_year: 3,
-            cv_file: 'abc.txt',
-            start_date: '1/1/2020',
-            end_date: '2/3/2020',
-            result: false,
-        },
-        {
-            key: '6',
-            name: 'Trí',
-            phone: '0901410230',
-            major: 'IT',
-            school_year: 3,
-            cv_file: 'abc.txt',
-            start_date: '1/1/2020',
-            end_date: '2/3/2020',
-            result: false,
-        },
-        {
-            key: '7',
-            name: 'Trí',
-            phone: '0901410230',
-            major: 'IT',
-            school_year: 3,
-            cv_file: 'abc.txt',
-            start_date: '1/1/2020',
-            end_date: '2/3/2020',
-            result: false,
-        },
-        {
-            key: '8',
-            name: 'Trí',
-            phone: '0901410230',
-            major: 'IT',
-            school_year: 3,
-            cv_file: 'abc.txt',
-            start_date: '1/1/2020',
-            end_date: '2/3/2020',
-            result: false,
-        },
-    ];
+
+    const [interns, setInterns] = useState([]);
+
+    useEffect(() => {
+        axios.get('http://127.0.0.1:8000/interns')
+            .then(res => {
+                setInterns(res.data)
+            })
+            .catch(err => { console.log(err) })
+
+    }, []);
 
     const columns = [
         {
@@ -146,13 +67,14 @@ export default function InternComponent() {
             width: "50px",
         },
     ];
+
     return (
         <div>
             <div className="d-flex-between">
                 <h1>Intern</h1>
                 <AddInternModal />
             </div>
-            <Table dataSource={dataSource} columns={columns} pagination={{ "pageSize": 5 }} />
+            <Table dataSource={interns} rowKey="id" columns={columns} pagination={{ "pageSize": 5 }} />
         </div>
     );
 }
