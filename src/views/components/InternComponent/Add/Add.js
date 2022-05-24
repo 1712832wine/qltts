@@ -1,40 +1,45 @@
 import { Button, Modal } from 'antd';
-import { Form, Input, Select, DatePicker } from 'antd';
+import { Form, Input, Select, DatePicker, Alert, Result } from 'antd';
 import { useState } from 'react';
 import React from 'react';
 import axios from 'axios';
+import swal from 'sweetalert'
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
 
-const SelectCustom = (options) => {
-    return (
-        <Select initialvalues={options[0].value}>
-            {
-                options.map(option => {
-                    return <Option key={option.value} value={option.value}>{option.text}</Option>
-                })
-            }
-        </Select>
-    )
-}
 
-const RenderSwitch = (item) => {
-    switch (item.type) {
-        case 'text':
-            return <Input />
-        case 'select':
-            return SelectCustom(item.options)
-        case 'date_range':
-            return <RangePicker />
-        default:
-            break;
-    }
-};
 
 const CollectionCreateForm = ({ visible, onCreate, onCancel, items }) => {
+
     const [form] = Form.useForm();
+
+    const SelectCustom = (options) => {
+        return (
+            <Select initialvalues={options[0].value}>
+                {
+                    options.map(option => {
+                        return <Option key={option.value} value={option.value}>{option.text}</Option>
+                    })
+                }
+            </Select>
+        )
+    }
+
+    const RenderSwitch = (item) => {
+        switch (item.type) {
+            case 'text':
+                return <Input />
+            case 'select':
+                return SelectCustom(item.options)
+            case 'date_range':
+                return <RangePicker />
+            default:
+                break;
+        }
+    };
+
     return (
         <Modal
             visible={visible}
@@ -81,16 +86,21 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel, items }) => {
     );
 };
 
-const AddInternModal = () => {
+const Add = ({ setRefresh, refresh }) => {
     const [visible, setVisible] = useState(false);
 
+    // Submit data to server
     const onCreate = (values) => {
-        axios.get('http://127.0.0.1:8000/interns')
+        console.log(values)
+        axios.post('http://127.0.0.1:8000/interns', values)
             .then(res => {
-
+                console.log(res)
+                swal("Good job!", "You created a new intern successfully!", "success");
+                setRefresh(!refresh);
             })
             .catch(err => { console.log(err) })
         setVisible(false);
+
     };
 
 
@@ -99,23 +109,23 @@ const AddInternModal = () => {
             label: 'Name',
             name: 'name',
             type: 'text',
-            rules: [
-                {
-                    required: true,
-                    message: 'Please input your name!',
-                },
-            ]
+            // rules: [
+            //     {
+            //         required: true,
+            //         message: 'Please input your name!',
+            //     },
+            // ]
         },
         {
             label: 'Phone',
             name: 'phone',
             type: 'text',
-            rules: [
-                {
-                    required: true,
-                    message: 'Please input your phone!',
-                },
-            ]
+            // rules: [
+            //     {
+            //         required: true,
+            //         message: 'Please input your phone!',
+            //     },
+            // ]
         },
         {
             label: 'Major',
@@ -136,23 +146,23 @@ const AddInternModal = () => {
             label: 'Date_Range',
             name: 'date_range',
             type: 'date_range',
-            rules: [
-                {
-                    required: true,
-                    message: 'Please select date start and date end!',
-                },
-            ]
+            // rules: [
+            //     {
+            //         required: true,
+            //         message: 'Please select date start and date end!',
+            //     },
+            // ]
         },
         {
             label: 'Result',
             name: 'result',
             type: 'select',
-            rules: [
-                {
-                    required: true,
-                    message: 'Please select date start and date end!',
-                },
-            ],
+            // rules: [
+            //     {
+            //         required: true,
+            //         message: 'Please select date start and date end!',
+            //     },
+            // ],
             options: [
                 {
                     value: 'Đạt',
@@ -165,12 +175,6 @@ const AddInternModal = () => {
             ]
         },
     ]
-
-
-
-
-
-
 
     return (
         <div>
@@ -190,8 +194,11 @@ const AddInternModal = () => {
                 }}
                 items={items}
             />
+
+
+
         </div>
     )
 }
 
-export default AddInternModal;
+export default Add;

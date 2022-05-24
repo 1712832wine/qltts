@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Table, Button, Tag, Space } from 'antd'
+import { Table, Button, Tag, Space, Alert } from 'antd'
 import axios from 'axios'
 import Add from "./Add/Add"
 import ViewDetail from "./ViewDetail/ViewDetail"
@@ -8,14 +8,14 @@ import ViewDetail from "./ViewDetail/ViewDetail"
 export default function InternComponent() {
 
     const [interns, setInterns] = useState([]);
-
+    const [refresh, setRefresh] = useState(0);
     useEffect(() => {
         axios.get('http://127.0.0.1:8000/interns')
             .then(res => {
                 setInterns(res.data)
             })
             .catch(err => { console.log(err) })
-    }, []);
+    }, [refresh]);
 
     const columns = [
         {
@@ -72,8 +72,9 @@ export default function InternComponent() {
         <div>
             <div className="d-flex-between">
                 <h1>Intern</h1>
-                <Add />
+                <Add refresh={refresh} setRefresh={setRefresh} />
             </div>
+
             <Table dataSource={interns} rowKey="id" columns={columns} pagination={{ "pageSize": 5 }} />
         </div>
     );

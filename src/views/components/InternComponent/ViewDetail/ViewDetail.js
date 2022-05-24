@@ -1,4 +1,4 @@
-import { Button, Modal } from 'antd';
+import { Button, Modal, Tag } from 'antd';
 import { useState } from 'react';
 
 
@@ -17,6 +17,14 @@ export default function ViewDetail({ item }) {
     const handleCancel = () => {
         setIsModalVisible(false);
     };
+    const MyTag = () => {
+        let color = item.result ? 'green' : 'red'
+        return (
+            <Tag color={color} key={item.key}>
+                {item.result ? 'Đạt' : 'Không Đạt'}
+            </Tag>
+        )
+    }
 
     return (
 
@@ -31,7 +39,10 @@ export default function ViewDetail({ item }) {
                 <p><b>School year:</b> {item.school_year}</p>
                 <p><b>Date start:</b> {item.start_date}</p>
                 <p><b>Date end:</b> {item.end_date}</p>
-                <p><b>Result:</b> {item.result ? 'Đạt' : 'Không đạt'}</p>
+                <p>
+                    <b className="mr-2">Result:</b>
+                    {MyTag()}
+                </p>
 
             </Modal>
         </>

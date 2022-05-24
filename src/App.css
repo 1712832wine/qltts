@@ -72,3 +72,11 @@
     border-color: #ffc53d;
     background: #ffc53d;
 }
+
+.mr-2 {
+    margin-right: 2px;
+}
+
+.mb-1 {
+    margin-bottom: 1rem;
+}
