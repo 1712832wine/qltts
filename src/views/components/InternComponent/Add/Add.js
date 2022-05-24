@@ -2,6 +2,7 @@ import { Button, Modal } from 'antd';
 import { Form, Input, Select, DatePicker } from 'antd';
 import { useState } from 'react';
 import React from 'react';
+import axios from 'axios';
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
@@ -37,7 +38,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel, items }) => {
     return (
         <Modal
             visible={visible}
-            title="Create a new collection"
+            title="Add new intern"
             okText="Create"
             cancelText="Cancel"
             onCancel={onCancel}
@@ -84,7 +85,11 @@ const AddInternModal = () => {
     const [visible, setVisible] = useState(false);
 
     const onCreate = (values) => {
-        console.log('Received values of form: ', values);
+        axios.get('http://127.0.0.1:8000/interns')
+            .then(res => {
+
+            })
+            .catch(err => { console.log(err) })
         setVisible(false);
     };
 

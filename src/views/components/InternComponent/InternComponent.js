@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Table, Button, Tag, Space } from 'antd'
 import axios from 'axios'
-import AddInternModal from "./AddInternModal/AddInternModal"
+import Add from "./Add/Add"
+import ViewDetail from "./ViewDetail/ViewDetail"
 
 
 export default function InternComponent() {
@@ -14,7 +15,6 @@ export default function InternComponent() {
                 setInterns(res.data)
             })
             .catch(err => { console.log(err) })
-
     }, []);
 
     const columns = [
@@ -58,7 +58,7 @@ export default function InternComponent() {
             render: (_, item) => {
                 return (
                     <Space size="middle">
-                        <Button type="primary">View</Button>
+                        <ViewDetail item={item} />
                         <Button className="btn-warning">Edit</Button>
                         <Button type="danger">Delete</Button>
                     </Space>
@@ -72,7 +72,7 @@ export default function InternComponent() {
         <div>
             <div className="d-flex-between">
                 <h1>Intern</h1>
-                <AddInternModal />
+                <Add />
             </div>
             <Table dataSource={interns} rowKey="id" columns={columns} pagination={{ "pageSize": 5 }} />
         </div>
