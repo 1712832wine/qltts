@@ -5,16 +5,15 @@ import swal from 'sweetalert'
 import ModalForm from '../../ModalForm/ModalForm';
 import { items } from '../Data';
 
-const Add = ({ setRefresh, refresh }) => {
+const Edit = ({ setRefresh, refresh, item }) => {
     const [visible, setVisible] = useState(false);
 
     // Submit data to server
-    const onCreate = (values) => {
-        console.log(values)
-        axios.post('http://127.0.0.1:8000/interns', values)
+    const onEdit = (values) => {
+        axios.put(`http://127.0.0.1:8000/interns/${item.id}`)
             .then(res => {
                 console.log(res)
-                swal("Good job!", "You created a new intern successfully!", "success");
+                swal("Good job!", "You edit successfully!", "success");
                 setRefresh(!refresh);
             })
             .catch(err => { console.log(err) })
@@ -25,20 +24,23 @@ const Add = ({ setRefresh, refresh }) => {
 
 
     return (
+
         <>
+            {console.log("ahiihi")}
             <Button
-                type="primary"
+                className="btn-warning"
                 onClick={() => {
                     setVisible(true);
                 }}
             >
-                Add new intern
+                Edit
             </Button>
             <ModalForm
                 visible={visible}
-                onCreate={onCreate}
-                okText="Create"
-                title="Add new intern"
+                onCreate={onEdit}
+                okText="Edit"
+                title="Edit intern"
+                value_before={item}
                 onCancel={() => {
                     setVisible(false);
                 }}
@@ -48,4 +50,4 @@ const Add = ({ setRefresh, refresh }) => {
     )
 }
 
-export default Add;
+export default Edit;

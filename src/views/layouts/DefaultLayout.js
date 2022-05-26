@@ -1,63 +1,60 @@
 
 import { Breadcrumb, Layout, Menu } from 'antd';
+import HomeComponent from '../components/HomeComponent/HomeComponent';
 import InternComponent from '../components/InternComponent/InternComponent';
+import { Route, Routes, Link } from 'react-router-dom';
+import './defaultlayout.scss'
 
 const { Header, Content, Footer } = Layout;
 
 export default function DefaultLayout() {
-    const items = [{
-        key: 1,
-        label: 'Intern',
-    }]
+    const routers = [
+        {
+            key: 1,
+            label: 'Home',
+            route: '/'
+        },
+        {
+            key: 2,
+            label: 'Intern',
+            route: '/interns'
+        }
+    ]
     return (
-        <Layout>
+        <Layout className="vh-100" >
             <Header
-                style={{
-                    position: 'fixed',
-                    zIndex: 1,
-                    width: '100%',
-                }}
+                className="header"
             >
                 <div className="logo" />
                 <Menu
                     theme="dark"
                     mode="horizontal"
-                    defaultSelectedKeys={['2']}
-                    items={items}
-                />
+                    defaultSelectedKeys={['1']}
+                // items={routers}
+                >
+                    {routers.map((router) => {
+                        return (
+                            <Menu.Item key={router.key}>
+                                <Link to={router.route} className="bold">{router.label}</Link>
+                            </Menu.Item>
+                        )
+                    })}
+                </Menu>
             </Header>
-            <Content
-                className="site-layout"
-                style={{
-                    padding: '0 50px',
-                    marginTop: 64,
-                }}
-            >
-                <Breadcrumb
-                    style={{
-                        margin: '16px 0',
-                    }}
-                >
-                    <Breadcrumb.Item>Home</Breadcrumb.Item>
-                    <Breadcrumb.Item>Intern</Breadcrumb.Item>
-                </Breadcrumb>
-                <div
-                    className="site-layout-background"
-                    style={{
-                        padding: 24,
-                        minHeight: 380,
-                    }}
-                >
-                    <InternComponent />
+            <Content className="site-layout content-wrapper">
+
+                <div className="site-layout-background content">
+                    <Routes>
+                        <Route exact path='/' element={< HomeComponent />}></Route>
+                        <Route path='/interns' element={<InternComponent />}>
+
+                        </Route>
+                    </Routes>
                 </div>
             </Content>
-            <Footer
-                style={{
-                    textAlign: 'center',
-                }}
-            >
+            <Footer className="text-center">
                 Ant Design ©2018 Created by Ant UED
             </Footer>
-        </Layout>
+        </Layout >
     )
 }

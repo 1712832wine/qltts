@@ -1,0 +1,15 @@
+.header {
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+}
+
+.content-wrapper {
+    padding: 0 50px;
+    margin-top: 80px;
+    .content {
+        padding: 24px;
+        min-height: 380px;
+        height: 100%;
+    }
+}

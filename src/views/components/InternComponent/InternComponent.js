@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { Table, Button, Tag, Space, Alert } from 'antd'
+import { Table, Tag, Space } from 'antd'
 import axios from 'axios'
 import Add from "./Add/Add"
+import Edit from "./Edit/Edit"
+import Delete from "./Delete/Delete"
 import ViewDetail from "./ViewDetail/ViewDetail"
 
 
 export default function InternComponent() {
 
     const [interns, setInterns] = useState([]);
+
     const [refresh, setRefresh] = useState(0);
     useEffect(() => {
         axios.get('http://127.0.0.1:8000/interns')
@@ -59,8 +62,8 @@ export default function InternComponent() {
                 return (
                     <Space size="middle">
                         <ViewDetail item={item} />
-                        <Button className="btn-warning">Edit</Button>
-                        <Button type="danger">Delete</Button>
+                        <Edit refresh={refresh} setRefresh={setRefresh} item={item} />
+                        <Delete refresh={refresh} setRefresh={setRefresh} item={item} />
                     </Space>
                 );
             },
@@ -74,7 +77,6 @@ export default function InternComponent() {
                 <h1>Intern</h1>
                 <Add refresh={refresh} setRefresh={setRefresh} />
             </div>
-
             <Table dataSource={interns} rowKey="id" columns={columns} pagination={{ "pageSize": 5 }} />
         </div>
     );
