@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { Table, Tag, Space } from 'antd'
-import axios from 'axios'
-import Add from "./Add/Add"
-import Edit from "./Edit/Edit"
+import { Table, Tag, Space, Button } from 'antd'
+
 import Delete from "./Delete/Delete"
 import ViewDetail from "./ViewDetail/ViewDetail"
+import { Link } from 'react-router-dom';
+// import ModalForm from '../../ModalForm/ModalForm'
 
+import axios from 'axios'
 
 export default function InternComponent() {
-
     const [interns, setInterns] = useState([]);
-
     const [refresh, setRefresh] = useState(0);
     useEffect(() => {
         axios.get('http://127.0.0.1:8000/interns')
@@ -61,10 +60,22 @@ export default function InternComponent() {
             render: (_, item) => {
                 return (
                     <Space size="middle">
-                        <ViewDetail item={item} />
-                        <Edit refresh={refresh} setRefresh={setRefresh} item={item} />
+
+                        <Link to={`${item.id}`}>
+                            <Button type="primary">
+                                View
+                            </Button>
+                        </Link>
+                        <Button
+                            className="btn-warning"
+                            onClick={() => {
+
+                            }}
+                        >
+                            Edit
+                        </Button>
                         <Delete refresh={refresh} setRefresh={setRefresh} item={item} />
-                    </Space>
+                    </Space >
                 );
             },
             width: "50px",
@@ -75,9 +86,27 @@ export default function InternComponent() {
         <div>
             <div className="d-flex-between">
                 <h1>Intern</h1>
-                <Add refresh={refresh} setRefresh={setRefresh} />
+                <Button
+                    type="primary"
+                    onClick={() => {
+                    }}
+                >
+                    Edit
+                </Button>
             </div>
             <Table dataSource={interns} rowKey="id" columns={columns} pagination={{ "pageSize": 5 }} />
+
+            {/* <ModalForm
+                visible={visible}
+                type={onEdit}
+                okText="Edit"
+                title="Edit intern"
+                edit_item={edit_item}
+                onCancel={() => {
+                    setVisible(false);
+                }}
+                fields={fields}
+            /> */}
         </div>
     );
 }

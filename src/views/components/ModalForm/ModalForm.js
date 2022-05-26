@@ -1,3 +1,5 @@
+/*
+
 import { Modal } from 'antd';
 import { Form, Input, Select, DatePicker } from 'antd';
 import React from 'react';
@@ -5,7 +7,7 @@ import React from 'react';
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
-const ModalForm = ({ visible, onCreate, onCancel, items, title, okText, value_before }) => {
+const ModalForm = ({ visible, onCancel, fields, title, okText, value_before }) => {
 
     const [form] = Form.useForm();
 
@@ -20,7 +22,25 @@ const ModalForm = ({ visible, onCreate, onCancel, items, title, okText, value_be
             </Select>
         )
     }
+    axios.post('http://127.0.0.1:8000/interns', values)
+            .then(res => {
+                console.log(res)
+                swal("Good job!", "You created a new intern successfully!", "success");
+                setRefresh(!refresh);
+            })
+            .catch(err => { console.log(err) })
+    
+    const onEdit = (values) => {
+        axios.put(`http://127.0.0.1:8000/interns/${item.id}`)
+            .then(res => {
+                console.log(res)
+                swal("Good job!", "You edit successfully!", "success");
+                setRefresh(!refresh);
+            })
+            .catch(err => { console.log(err) })
+        setVisible(false);
 
+    };
     const RenderSwitch = (item) => {
         switch (item.type) {
             case 'text':
@@ -47,7 +67,7 @@ const ModalForm = ({ visible, onCreate, onCancel, items, title, okText, value_be
                     .validateFields()
                     .then((values) => {
                         form.resetFields();
-                        onCreate(values);
+                        
                     })
                     .catch((info) => {
                         console.log('Validate Failed:', info);
@@ -63,7 +83,7 @@ const ModalForm = ({ visible, onCreate, onCancel, items, title, okText, value_be
                 }}
             >
                 {
-                    items.map(item => {
+                    fields.map(item => {
                         return (
                             < Form.Item
                                 key={item.label}
@@ -82,3 +102,6 @@ const ModalForm = ({ visible, onCreate, onCancel, items, title, okText, value_be
 };
 
 export default ModalForm;
+
+
+*/

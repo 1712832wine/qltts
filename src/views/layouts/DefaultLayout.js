@@ -1,7 +1,8 @@
 
-import { Breadcrumb, Layout, Menu } from 'antd';
+import { Layout, Menu } from 'antd';
 import HomeComponent from '../components/HomeComponent/HomeComponent';
 import InternComponent from '../components/InternComponent/InternComponent';
+import ViewDetail from '../components/InternComponent/ViewDetail/ViewDetail';
 import { Route, Routes, Link } from 'react-router-dom';
 import './defaultlayout.scss'
 
@@ -45,10 +46,9 @@ export default function DefaultLayout() {
 
                 <div className="site-layout-background content">
                     <Routes>
-                        <Route exact path='/' element={< HomeComponent />}></Route>
-                        <Route path='/interns' element={<InternComponent />}>
-
-                        </Route>
+                        <Route exact path='/' element={< HomeComponent />} />
+                        <Route path='/interns' element={<InternComponent />} />
+                        <Route path="/interns/:id" element={<ViewDetail />} />
                     </Routes>
                 </div>
             </Content>
