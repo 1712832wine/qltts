@@ -1,24 +1,24 @@
 
 import { Layout, Menu } from 'antd';
-import HomeComponent from '../components/HomeComponent/HomeComponent';
-import InternComponent from '../components/InternComponent/InternComponent';
-import ViewDetail from '../components/InternComponent/ViewDetail/ViewDetail';
+import { routes } from '../../routes'
 import { Route, Routes, Link } from 'react-router-dom';
 import './defaultlayout.scss'
+import { useState } from 'react';
 
 const { Header, Content, Footer } = Layout;
 
 export default function DefaultLayout() {
+    const [location,] = useState(window.location.pathname);
     const routers = [
         {
-            key: 1,
+            key: '/',
             label: 'Home',
-            route: '/'
+            path: '/'
         },
         {
-            key: 2,
+            key: '/interns',
             label: 'Intern',
-            route: '/interns'
+            path: '/interns'
         }
     ]
     return (
@@ -30,13 +30,13 @@ export default function DefaultLayout() {
                 <Menu
                     theme="dark"
                     mode="horizontal"
-                    defaultSelectedKeys={['1']}
+                    defaultSelectedKeys={[location]}
                 // items={routers}
                 >
                     {routers.map((router) => {
                         return (
                             <Menu.Item key={router.key}>
-                                <Link to={router.route} className="bold">{router.label}</Link>
+                                <Link to={router.path} className="bold">{router.label}</Link>
                             </Menu.Item>
                         )
                     })}
@@ -46,9 +46,9 @@ export default function DefaultLayout() {
 
                 <div className="site-layout-background content">
                     <Routes>
-                        <Route exact path='/' element={< HomeComponent />} />
-                        <Route path='/interns' element={<InternComponent />} />
-                        <Route path="/interns/:id" element={<ViewDetail />} />
+                        {routes.map((route) => {
+                            return <Route exact path={route.path} key={route.key} element={route.element} />
+                        })}
                     </Routes>
                 </div>
             </Content>

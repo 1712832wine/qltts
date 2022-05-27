@@ -1,7 +1,7 @@
 import React from 'react'
 import swal from 'sweetalert'
-import axios from 'axios'
 import { Button } from 'antd'
+import { apis } from '../../../../API/apis'
 
 export default function Delete({ item, refresh, setRefresh }) {
 
@@ -15,7 +15,7 @@ export default function Delete({ item, refresh, setRefresh }) {
         })
             .then((willDelete) => {
                 if (willDelete) {
-                    axios.delete(`http://127.0.0.1:8000/interns/${item.id}`)
+                    apis.deleteIntern(item.id)
                         .then(res => {
                             swal("Good job!", "Delete successfully!", "success");
                             setRefresh(!refresh);

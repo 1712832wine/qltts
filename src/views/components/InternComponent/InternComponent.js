@@ -2,21 +2,20 @@ import React, { useEffect, useState } from 'react'
 import { Table, Tag, Space, Button } from 'antd'
 
 import Delete from "./Delete/Delete"
-import ViewDetail from "./ViewDetail/ViewDetail"
 import { Link } from 'react-router-dom';
-// import ModalForm from '../../ModalForm/ModalForm'
 
-import axios from 'axios'
+import { apis } from '../../../API/apis';
 
 export default function InternComponent() {
     const [interns, setInterns] = useState([]);
     const [refresh, setRefresh] = useState(0);
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/interns')
-            .then(res => {
-                setInterns(res.data)
-            })
+        apis.getInterns()
+            .then(res => { setInterns(res.data) })
             .catch(err => { console.log(err) })
+
+        console.log(interns)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refresh]);
 
     const columns = [
@@ -68,9 +67,7 @@ export default function InternComponent() {
                         </Link>
                         <Button
                             className="btn-warning"
-                            onClick={() => {
-
-                            }}
+                            onClick={() => { }}
                         >
                             Edit
                         </Button>
@@ -91,7 +88,7 @@ export default function InternComponent() {
                     onClick={() => {
                     }}
                 >
-                    Edit
+                    Create a new intern
                 </Button>
             </div>
             <Table dataSource={interns} rowKey="id" columns={columns} pagination={{ "pageSize": 5 }} />
