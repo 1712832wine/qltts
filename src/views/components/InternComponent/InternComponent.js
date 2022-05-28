@@ -13,8 +13,6 @@ export default function InternComponent() {
         apis.getInterns()
             .then(res => { setInterns(res.data) })
             .catch(err => { console.log(err) })
-
-        console.log(interns)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refresh]);
 
@@ -65,12 +63,11 @@ export default function InternComponent() {
                                 View
                             </Button>
                         </Link>
-                        <Button
-                            className="btn-warning"
-                            onClick={() => { }}
-                        >
-                            Edit
-                        </Button>
+                        <Link to={`edit/${item.id}`}>
+                            <Button className="btn-warning">
+                                Edit
+                            </Button>
+                        </Link>
                         <Delete refresh={refresh} setRefresh={setRefresh} item={item} />
                     </Space >
                 );
@@ -83,13 +80,11 @@ export default function InternComponent() {
         <div>
             <div className="d-flex-between">
                 <h1>Intern</h1>
-                <Button
-                    type="primary"
-                    onClick={() => {
-                    }}
-                >
-                    Create a new intern
-                </Button>
+                <Link to='create'>
+                    <Button type="primary">
+                        Create a new intern
+                    </Button>
+                </Link>
             </div>
             <Table dataSource={interns} rowKey="id" columns={columns} pagination={{ "pageSize": 5 }} />
 
@@ -104,6 +99,6 @@ export default function InternComponent() {
                 }}
                 fields={fields}
             /> */}
-        </div>
+        </div >
     );
 }

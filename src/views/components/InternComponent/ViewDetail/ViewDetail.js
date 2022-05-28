@@ -27,6 +27,8 @@ const ViewDetail = () => {
             <div style={{ fontSize: 16 }}>
                 <div><b>Name: </b> {item.name}</div>
                 <div><b>Phone: </b> {item.phone}</div>
+                <div><b>School year: </b> {item.school_year}</div>
+                <div><b>Major: </b> {item.major}</div>
                 <div><b>Start date: </b> {item.start_date}</div>
                 <div><b>End date: </b> {item.end_date}</div>
                 <div><b>Result: </b> {myTag(item.result)}</div>

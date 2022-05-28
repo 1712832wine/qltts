@@ -86,7 +86,7 @@
 }
 
 .vh-100 {
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .text-center {
@@ -95,4 +95,8 @@
 
 .bold {
     font-weight: bold;
+}
+
+.mr-8 {
+    margin-right: 8px;
 }

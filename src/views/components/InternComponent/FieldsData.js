@@ -1,26 +1,26 @@
 // This items using for render inputs in form interns
-export const items = [
+export const fields = [
     {
         label: 'Name',
         name: 'name',
         type: 'text',
-        // rules: [
-        //     {
-        //         required: true,
-        //         message: 'Please input your name!',
-        //     },
-        // ]
+        rules: [
+            {
+                required: true,
+                message: 'Please input your name!',
+            },
+        ]
     },
     {
         label: 'Phone',
         name: 'phone',
         type: 'text',
-        // rules: [
-        //     {
-        //         required: true,
-        //         message: 'Please input your phone!',
-        //     },
-        // ]
+        rules: [
+            {
+                required: true,
+                message: 'Please input your phone!',
+            },
+        ]
     },
     {
         label: 'Major',
@@ -41,23 +41,23 @@ export const items = [
         label: 'Date_Range',
         name: 'date_range',
         type: 'date_range',
-        // rules: [
-        //     {
-        //         required: true,
-        //         message: 'Please select date start and date end!',
-        //     },
-        // ]
+        rules: [
+            {
+                required: true,
+                message: 'Please select date start and date end!',
+            },
+        ]
     },
     {
         label: 'Result',
         name: 'result',
         type: 'select',
-        // rules: [
-        //     {
-        //         required: true,
-        //         message: 'Please select date start and date end!',
-        //     },
-        // ],
+        rules: [
+            {
+                required: true,
+                message: 'Please select result!',
+            },
+        ],
         options: [
             {
                 value: 'Đạt',
