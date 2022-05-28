@@ -61,9 +61,7 @@ const MyForm = ({ fields, value_before_edit, onSubmit }) => {
     };
     return (
         <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}
-            initialValues={value_before_edit ? {
-
-            } : {}}
+            initialValues={value_before_edit ? {} : {}}
 
         >
             {
