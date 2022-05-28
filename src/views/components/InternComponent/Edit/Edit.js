@@ -15,7 +15,6 @@ export default function Edit() {
     useEffect(() => {
         apis.viewIntern(id)
             .then(res => {
-                // res.data.result = (res.data.result ? 'Đạt' : 'Không Đạt')
                 setValue(res.data)
             })
             .catch(() => {
@@ -24,7 +23,6 @@ export default function Edit() {
     }, [id]);
 
     const onSubmit = (values) => {
-        console.log("submit", values)
         values.start_date = moment.utc(values.date_range[0]).format('YYYY-MM-DD')
         values.end_date = moment.utc(values.date_range[1]).format('YYYY-MM-DD')
         apis.editIntern(id, values)

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Button, Form, Input, Select, DatePicker, Upload, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-
+import moment from 'moment';
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
@@ -24,7 +24,10 @@ const tailLayout = {
 const MyForm = ({ fields, value_before_edit, onSubmit }) => {
     const [form] = Form.useForm();
     useEffect(() => {
-        form.setFieldsValue(value_before_edit)
+        form.setFieldsValue({
+            ...value_before_edit,
+            date_range: [moment(value_before_edit.start_date), moment(value_before_edit.end_date)]
+        })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value_before_edit]);
 
