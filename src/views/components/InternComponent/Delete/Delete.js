@@ -2,6 +2,7 @@ import React from 'react'
 import swal from 'sweetalert'
 import { Button } from 'antd'
 import { apis } from '../../../../API/apis'
+import { DeleteOutlined } from '@ant-design/icons'
 
 export default function Delete({ item, refresh, setRefresh }) {
 
@@ -28,6 +29,6 @@ export default function Delete({ item, refresh, setRefresh }) {
     }
 
     return (
-        <Button type="danger" onClick={() => deleteItem(item)}>Delete</Button>
+        <Button type="danger" onClick={() => deleteItem(item)} icon={<DeleteOutlined />}></Button>
     )
 }

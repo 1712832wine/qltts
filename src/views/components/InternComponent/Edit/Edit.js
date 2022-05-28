@@ -14,8 +14,13 @@ export default function Edit() {
 
     useEffect(() => {
         apis.viewIntern(id)
-            .then(res => { setValue(res.data) })
-            .catch(err => { console.log("error") })
+            .then(res => {
+                // res.data.result = (res.data.result ? 'Đạt' : 'Không Đạt')
+                setValue(res.data)
+            })
+            .catch(() => {
+                console.log("Get item edit failed")
+            })
     }, [id]);
 
     const onSubmit = (values) => {
@@ -32,7 +37,12 @@ export default function Edit() {
                     navigate('/interns')
                 })
             })
-            .catch(() => {
+            .catch(({ response }) => {
+                swal({
+                    title: "Error!",
+                    text: response.data.message,
+                    icon: "error",
+                }).then(() => { })
                 console.log("Edit failed")
             })
     }

@@ -22,7 +22,12 @@ const Create = () => {
                     navigate('/interns')
                 })
             })
-            .catch(() => {
+            .catch(({ response }) => {
+                swal({
+                    title: "Error!",
+                    text: response.data.message,
+                    icon: "error",
+                }).then(() => { })
                 console.log("Create failed")
             })
     }

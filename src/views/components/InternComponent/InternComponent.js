@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Table, Tag, Space, Button } from 'antd'
+import { EditOutlined, EyeOutlined } from '@ant-design/icons'
 
 import Delete from "./Delete/Delete"
 import { Link } from 'react-router-dom';
@@ -9,10 +10,31 @@ import { apis } from '../../../API/apis';
 export default function InternComponent() {
     const [interns, setInterns] = useState([]);
     const [refresh, setRefresh] = useState(0);
-    useEffect(() => {
-        apis.getInterns()
-            .then(res => { setInterns(res.data) })
+    const [pagination, setPagination] = useState({
+        current: 1,
+        pageSize: 5,
+    });
+    const [loading, setLoading] = useState(false);
+
+
+    const fetchData = (params = {}) => {
+        setLoading(true);
+        apis.getInterns(params.pagination?.current)
+            .then(res => {
+                setLoading(false);
+                setInterns(res.data.data)
+                setPagination({
+                    ...params.pagination,
+                    total: res.data.total,
+                });
+            })
             .catch(err => { console.log(err) })
+    }
+
+    useEffect(() => {
+        fetchData({
+            pagination,
+        });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refresh]);
 
@@ -26,16 +48,19 @@ export default function InternComponent() {
             title: 'Phone',
             dataIndex: 'phone',
             key: 'phone',
+            responsive: ['lg'],
         },
         {
             title: 'Start Date',
             dataIndex: 'start_date',
             key: 'start_date',
+            responsive: ['lg'],
         },
         {
             title: 'End Date',
             dataIndex: 'end_date',
             key: 'end_date',
+            responsive: ['lg'],
         },
         {
             title: 'Result',
@@ -54,18 +79,18 @@ export default function InternComponent() {
             title: 'Actions',
             dataIndex: 'actions',
             key: 'actions',
+            responsive: ['md'],
             render: (_, item) => {
                 return (
-                    <Space size="middle">
+                    <Space size="small">
 
                         <Link to={`${item.id}`}>
-                            <Button type="primary">
-                                View
+                            <Button type="primary" icon={<EyeOutlined />}>
                             </Button>
                         </Link>
                         <Link to={`edit/${item.id}`}>
-                            <Button className="btn-warning">
-                                Edit
+                            <Button className="btn-warning" icon={<EditOutlined />}>
+
                             </Button>
                         </Link>
                         <Delete refresh={refresh} setRefresh={setRefresh} item={item} />
@@ -76,29 +101,31 @@ export default function InternComponent() {
         },
     ];
 
+
+    const handleTableChange = (newPagination) => {
+        fetchData({ pagination: newPagination, });
+    };
+
     return (
         <div>
             <div className="d-flex-between">
                 <h1>Intern</h1>
+
                 <Link to='create'>
                     <Button type="primary">
                         Create a new intern
                     </Button>
                 </Link>
             </div>
-            <Table dataSource={interns} rowKey="id" columns={columns} pagination={{ "pageSize": 5 }} />
 
-            {/* <ModalForm
-                visible={visible}
-                type={onEdit}
-                okText="Edit"
-                title="Edit intern"
-                edit_item={edit_item}
-                onCancel={() => {
-                    setVisible(false);
-                }}
-                fields={fields}
-            /> */}
+            <Table
+                dataSource={interns}
+                rowKey="id"
+                columns={columns}
+                pagination={pagination}
+                onChange={handleTableChange}
+                loading={loading}
+            />
         </div >
     );
 }

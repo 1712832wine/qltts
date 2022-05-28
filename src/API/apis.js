@@ -1,9 +1,8 @@
 import axios from "axios";
 
 export const apis = {
-    // auth
-    getInterns: () => {
-        return axios.get('http://127.0.0.1:8000/interns')
+    getInterns: (page) => {
+        return axios.get(`http://127.0.0.1:8000/interns?page=${page}`)
     },
     viewIntern: (id) => {
         return axios.get(`http://127.0.0.1:8000/interns/${id}`)

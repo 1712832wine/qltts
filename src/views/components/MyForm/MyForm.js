@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
-import moment from 'moment';
-import { Button, Form, Input, Select, DatePicker } from 'antd';
-import 'moment/locale/zh-cn';
-import locale from 'antd/es/date-picker/locale/vi_VN';
+import { Button, Form, Input, Select, DatePicker, Upload, message } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
@@ -39,6 +38,25 @@ const MyForm = ({ fields, value_before_edit, onSubmit }) => {
         form.resetFields();
     };
 
+    const props = {
+        name: 'file',
+        action: 'http://127.0.0.1:8000/upload/files',
+        headers: {
+            authorization: 'authorization-text',
+        },
+        onChange(info) {
+            if (info.file.status !== 'uploading') {
+                console.log(info.file, info.fileList);
+            }
+
+            if (info.file.status === 'done') {
+                message.success(`${info.file.name} file uploaded successfully`);
+            } else if (info.file.status === 'error') {
+                message.error(`${info.file.name} file upload failed.`);
+            }
+        },
+    };
+
     const SwitchInputType = (field) => {
         switch (field.type) {
             case 'text':
@@ -55,6 +73,13 @@ const MyForm = ({ fields, value_before_edit, onSubmit }) => {
                 )
             case 'date_range':
                 return <RangePicker format={dateFormat} />
+            case 'file':
+                return (
+                    <Upload {...props}>
+                        <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                    </Upload>
+                )
+
             default:
                 break;
         }

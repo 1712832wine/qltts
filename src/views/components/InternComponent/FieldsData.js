@@ -16,10 +16,9 @@ export const fields = [
         name: 'phone',
         type: 'text',
         rules: [
-            {
-                required: true,
-                message: 'Please input your phone!',
-            },
+            { required: true, message: 'Please input your username!' },
+            { min: 9, message: 'Phone must be minimum 9 characters.' },
+            { max: 15, message: 'Phone must be maximum 15 characters.' },
         ]
     },
     {
@@ -30,11 +29,6 @@ export const fields = [
     {
         label: 'School Year',
         name: 'school_year',
-        type: 'text',
-    },
-    {
-        label: 'CV File',
-        name: 'cv_file',
         type: 'text',
     },
     {
@@ -60,14 +54,19 @@ export const fields = [
         ],
         options: [
             {
-                value: 'Đạt',
+                value: 1,
                 text: 'Đạt'
             },
             {
-                value: 'Không đạt',
+                value: 0,
                 text: 'Không đạt'
             }
         ]
+    },
+    {
+        label: 'CV File',
+        name: 'cv_file',
+        type: 'file',
     },
 ]
 
