@@ -23,12 +23,18 @@ const Create = () => {
                 })
             })
             .catch(({ response }) => {
-                swal({
-                    title: "Error!",
-                    text: response.data.message,
-                    icon: "error",
-                }).then(() => { })
-                console.log("Create failed")
+
+                if (response.data) {
+                    swal({
+                        title: "Error!",
+                        text: response.data.message,
+                        icon: "error",
+                    }).then(() => { })
+                    console.log("Create failed")
+                }
+                else {
+                    navigate('/500')
+                }
             })
     }
     return (

@@ -1,18 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import PageHeader from '../../PageHeader/PageHeader'
 import { Tag } from 'antd'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { apis } from '../../../../API/apis'
 
 
 const ViewDetail = () => {
     const { id } = useParams();
     const [item, setItem] = useState({});
+    const navigate = useNavigate();
+
     useEffect(() => {
         apis.viewIntern(id)
             .then(res => { setItem(res.data) })
-            .catch(err => { console.log("error") })
-    }, [id]);
+            .catch(({ response }) => {
+                if (!response.data) {
+                    navigate('/500')
+                }
+                if (response.status === 404) {
+                    navigate('/404')
+                }
+            })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     const myTag = (result) => {
         let color = result ? 'green' : 'red';
         return (
@@ -33,9 +43,9 @@ const ViewDetail = () => {
                 <div><b>End date: </b> {item.end_date}</div>
                 <div><b>Result: </b> {myTag(item.result)}</div>
             </div>
-
-        </div>
-    );
+        </div >
+    )
 }
+
 
 export default ViewDetail;

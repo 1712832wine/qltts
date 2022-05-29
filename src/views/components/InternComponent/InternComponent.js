@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Table, Tag, Space, Button } from 'antd'
 import { EditOutlined, EyeOutlined } from '@ant-design/icons'
-
+import { useNavigate } from "react-router-dom";
 import Delete from "./Delete/Delete"
 import { Link } from 'react-router-dom';
 
@@ -15,7 +15,7 @@ export default function InternComponent() {
         pageSize: 5,
     });
     const [loading, setLoading] = useState(false);
-
+    const navigate = useNavigate();
 
     const fetchData = (params = {}) => {
         setLoading(true);
@@ -28,7 +28,14 @@ export default function InternComponent() {
                     total: res.data.total,
                 });
             })
-            .catch(err => { console.log(err) })
+            .catch(({ response }) => {
+                if (!response.data) {
+                    navigate('/500')
+                }
+                if (response.status === 404) {
+                    navigate('/404')
+                }
+            })
     }
 
     useEffect(() => {

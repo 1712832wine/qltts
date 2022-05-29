@@ -1,9 +1,7 @@
 
 import './App.css';
-
-import DefaultLayout from "./views/layouts/DefaultLayout";
-
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { routes } from './routes'
 
 function App() {
 
@@ -11,7 +9,13 @@ function App() {
   return (
     <>
       <Router>
-        <DefaultLayout />
+        <Routes>
+          {
+            routes.map((route) => {
+              return <Route exact path={route.path} key={route.key} element={route.element} />
+            })
+          }
+        </Routes>
       </Router>
     </>
   )

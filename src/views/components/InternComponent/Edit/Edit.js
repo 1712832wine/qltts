@@ -36,12 +36,20 @@ export default function Edit() {
                 })
             })
             .catch(({ response }) => {
-                swal({
-                    title: "Error!",
-                    text: response.data.message,
-                    icon: "error",
-                }).then(() => { })
-                console.log("Edit failed")
+                if (response.data) {
+                    swal({
+                        title: "Error!",
+                        text: response.data.message,
+                        icon: "error",
+                    }).then(() => { })
+                } else {
+                    if (!response.data) {
+                        navigate('/500')
+                    }
+                    if (response.status === 404) {
+                        navigate('/404')
+                    }
+                }
             })
     }
     return (

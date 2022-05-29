@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 const { Header, Content, Footer } = Layout;
 
-export default function DefaultLayout() {
+export default function DefaultLayout({ children }) {
     const [location,] = useState(window.location.pathname);
     const routers = [
         {
@@ -45,11 +45,7 @@ export default function DefaultLayout() {
             <Content className="site-layout content-wrapper">
 
                 <div className="site-layout-background content">
-                    <Routes>
-                        {routes.map((route) => {
-                            return <Route exact path={route.path} key={route.key} element={route.element} />
-                        })}
-                    </Routes>
+                    {children}
                 </div>
             </Content>
             <Footer className="text-center">

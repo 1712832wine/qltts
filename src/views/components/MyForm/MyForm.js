@@ -24,10 +24,12 @@ const tailLayout = {
 const MyForm = ({ fields, value_before_edit, onSubmit }) => {
     const [form] = Form.useForm();
     useEffect(() => {
-        form.setFieldsValue({
-            ...value_before_edit,
-            date_range: [moment(value_before_edit.start_date), moment(value_before_edit.end_date)]
-        })
+        if (value_before_edit) {
+            form.setFieldsValue({
+                ...value_before_edit,
+                date_range: [moment(value_before_edit.start_date), moment(value_before_edit.end_date)]
+            })
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value_before_edit]);
 
@@ -78,7 +80,7 @@ const MyForm = ({ fields, value_before_edit, onSubmit }) => {
                 return <RangePicker format={dateFormat} />
             case 'file':
                 return (
-                    <Upload {...props}>
+                    <Upload {...props} beforeUpload={() => false}>
                         <Button icon={<UploadOutlined />}>Click to Upload</Button>
                     </Upload>
                 )
