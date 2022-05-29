@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = 'https://manage-intern.herokuapp.com'
+const url = 'http://127.0.0.1:8000'
 
 export const apis = {
     getInterns: (page) => {
