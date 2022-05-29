@@ -1,7 +1,6 @@
 
 import { Layout, Menu } from 'antd';
-import { routes } from '../../routes'
-import { Route, Routes, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './defaultlayout.scss'
 import { useState } from 'react';
 

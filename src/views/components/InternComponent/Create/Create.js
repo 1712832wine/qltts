@@ -12,6 +12,7 @@ const Create = () => {
     const onSubmit = (values) => {
         values.start_date = moment.utc(values.date_range[0]).format('YYYY-MM-DD')
         values.end_date = moment.utc(values.date_range[1]).format('YYYY-MM-DD')
+        console.log("values", values)
         apis.createIntern(values)
             .then(() => {
                 swal({

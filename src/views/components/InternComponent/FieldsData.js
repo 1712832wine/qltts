@@ -63,11 +63,6 @@ export const fields = [
             }
         ]
     },
-    {
-        label: 'CV File',
-        name: 'cv_file',
-        type: 'file',
-    },
 ]
 
 

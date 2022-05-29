@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { Button, Form, Input, Select, DatePicker, Upload, message } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Select, DatePicker } from 'antd';
 import moment from 'moment';
 
 const { Option } = Select;
@@ -43,24 +42,6 @@ const MyForm = ({ fields, value_before_edit, onSubmit }) => {
         form.resetFields();
     };
 
-    const props = {
-        name: 'file',
-        action: 'http://127.0.0.1:8000/upload/files',
-        headers: {
-            authorization: 'authorization-text',
-        },
-        onChange(info) {
-            if (info.file.status !== 'uploading') {
-                console.log(info.file, info.fileList);
-            }
-
-            if (info.file.status === 'done') {
-                message.success(`${info.file.name} file uploaded successfully`);
-            } else if (info.file.status === 'error') {
-                message.error(`${info.file.name} file upload failed.`);
-            }
-        },
-    };
 
     const SwitchInputType = (field) => {
         switch (field.type) {
@@ -78,12 +59,6 @@ const MyForm = ({ fields, value_before_edit, onSubmit }) => {
                 )
             case 'date_range':
                 return <RangePicker format={dateFormat} />
-            case 'file':
-                return (
-                    <Upload {...props} beforeUpload={() => false}>
-                        <Button icon={<UploadOutlined />}>Click to Upload</Button>
-                    </Upload>
-                )
 
             default:
                 break;
@@ -109,15 +84,16 @@ const MyForm = ({ fields, value_before_edit, onSubmit }) => {
                     )
                 })
             }
-            < Form.Item {...tailLayout}>
+
+            <Form.Item {...tailLayout}>
                 <Button type="primary" htmlType="submit" className="mr-8">
                     Submit
                 </Button>
                 <Button htmlType="button" onClick={onReset}>
                     Reset
                 </Button>
-            </Form.Item >
-        </Form >
+            </Form.Item>
+        </Form>
     );
 };
 
