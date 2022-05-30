@@ -1,0 +1,39 @@
+{
+    "HOME_TITLE": "This is home page",
+    "HOME_CONTENT": "This project using ReactJS as frontend and Laravel as backend, to build a system can manage interns (CRUD).",
+
+    "PAGE_HEADER_CREATE_TITLE": "Create Intern Page",
+    "PAGE_HEADER_CREATE_SUBTITLE": "This page use to create new intern",
+    "PAGE_HEADER_EDIT_INTERN": "Edit Intern Page",
+    "PAGE_HEADER_EDIT_SUBTITLE": "This page use to edit existing intern",
+    "PAGE_HEADER_DETAIL_INTERN": "Intern Detail Page",
+    "PAGE_HEADER_DETAIL_SUBTITLE": "This page includes information of an intern",
+
+    "SUCCESS": "Success!",
+    "ERROR": "Error!",
+
+    "CREATE_A_NEW_INTERN": "Create a new intern",
+    "CREATE_INTERN_SUCCESS": "You created an new intern successfully!",
+
+    "ARE_YOU_SURE": "Are you sure?",
+    "SURE_WANT_TO_DELETE": "Are you sure want to delete this!",
+    "GOOD_JOB": "Good job!",
+    "DELETE_INTERN_SUCCESS": "Delete intern successfully!",
+
+    "EDIT_SUCCESS": "Edit success!",
+    "PASSED": "Passed",
+    "FAILED": "Failed",
+    "NAME": "Name",
+    "PHONE": "Phone",
+    "SCHOOL_YEAR": "School Year",
+    "MAJOR": "Major",
+    "START_DATE": "Start Date",
+    "END_DATE": "End Date",
+    "RESULT": "Result",
+    "HOME": "Home",
+    "INTERN": "Intern",
+    "SUBMIT": "Submit",
+    "RESET": "Reset",
+
+    "FOOTER_TEXT": "Designed by Antd"
+}

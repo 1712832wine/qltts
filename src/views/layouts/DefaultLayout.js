@@ -3,21 +3,25 @@ import { Layout, Menu } from 'antd';
 import { Link } from 'react-router-dom';
 import './defaultlayout.scss'
 import { useState } from 'react';
+import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
+import { INTERNS } from '../../Constants/const'
 
 const { Header, Content, Footer } = Layout;
 
 export default function DefaultLayout({ children }) {
+    const { t } = useTranslation();
     const [location,] = useState(window.location.pathname);
     const routers = [
         {
             key: '/',
-            label: 'Home',
+            label: t('HOME'),
             path: '/'
         },
         {
             key: '/interns',
-            label: 'Intern',
-            path: '/interns'
+            label: t('INTERN'),
+            path: `/${INTERNS}`
         }
     ]
     return (
@@ -48,7 +52,7 @@ export default function DefaultLayout({ children }) {
                 </div>
             </Content>
             <Footer className="text-center">
-                Ant Design ©2018 Created by Ant UED
+                {t('FOOTER_TEXT')}
             </Footer>
         </Layout >
     )

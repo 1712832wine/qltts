@@ -6,8 +6,11 @@ import { apis } from '../../../../API/apis';
 import swal from 'sweetalert';
 import { useNavigate, useParams } from "react-router-dom";
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
+import { INTERNS, PAGE_NOT_FOUND, SERVER_ERROR } from '../../../../Constants/const';
 
 export default function Edit() {
+    const { t } = useTranslation();
     const { id } = useParams();
     const [value_before_edit, setValue] = useState({});
     const navigate = useNavigate();
@@ -28,33 +31,33 @@ export default function Edit() {
         apis.editIntern(id, values)
             .then(() => {
                 swal({
-                    title: "Success!",
-                    text: "You edited successfully!",
+                    title: t('SUCCESS'),
+                    text: t('EDIT_SUCCESS'),
                     icon: "success",
                 }).then(() => {
-                    navigate('/interns')
+                    navigate(`/${INTERNS}`)
                 })
             })
             .catch(({ response }) => {
                 if (response.data) {
                     swal({
-                        title: "Error!",
+                        title: t('ERROR'),
                         text: response.data.message,
                         icon: "error",
                     }).then(() => { })
                 } else {
                     if (!response.data) {
-                        navigate('/500')
+                        navigate(`/${SERVER_ERROR}`)
                     }
                     if (response.status === 404) {
-                        navigate('/404')
+                        navigate(`/${PAGE_NOT_FOUND}`)
                     }
                 }
             })
     }
     return (
         <div>
-            <PageHeader link='/interns' title='Edit Intern Page' subtitle='This page use to edit existing intern' />
+            <PageHeader link={`/${INTERNS}`} title={t('PAGE_HEADER_EDIT_INTERN')} subtitle={t('PAGE_HEADER_EDIT_INTERN_SUBTITLE')} />
             <MyForm fields={fields} onSubmit={onSubmit} value_before_edit={value_before_edit}></MyForm>
         </div>
     )

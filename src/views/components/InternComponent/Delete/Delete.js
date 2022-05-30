@@ -3,13 +3,15 @@ import swal from 'sweetalert'
 import { Button } from 'antd'
 import { apis } from '../../../../API/apis'
 import { DeleteOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next';
 
 export default function Delete({ item, refresh, setRefresh }) {
+    const { t } = useTranslation();
 
     const deleteItem = (item) => {
         swal({
-            title: "Are you sure?",
-            text: "Are you sure want to delete this!",
+            title: t('ARE_YOU_SURE'),
+            text: t('SURE_WANT_TO_DELETE'),
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -18,7 +20,7 @@ export default function Delete({ item, refresh, setRefresh }) {
                 if (willDelete) {
                     apis.deleteIntern(item.id)
                         .then(res => {
-                            swal("Good job!", "Delete successfully!", "success");
+                            swal(t('GOOD_JOB'), t('DELETE_INTERN_SUCCESS'), "success");
                             setRefresh(!refresh);
                         })
                         .catch(err => { console.log(err) })

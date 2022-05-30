@@ -1,15 +1,16 @@
 import React from 'react'
 import './HomeComponent.scss'
+import { useTranslation } from 'react-i18next';
 
 export default function HomeComponent() {
+    const { t } = useTranslation();
     return (
         <div className="home-wrapper">
             <div className="home-wrapper__title">
-                This is home page
+                {t('HOME_TITLE')}
             </div>
             <div className="home-wrapper__content">
-                This project using ReactJS as frontend and Laravel as backend,
-                to build a system can manage interns (CRUD).
+                {t('HOME_CONTENT')}
             </div>
         </div>
     )

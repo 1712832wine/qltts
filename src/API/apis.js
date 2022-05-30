@@ -1,22 +1,22 @@
 import axios from "axios";
+import { URL, INTERNS } from "../Constants/const"
 
-const url = 'http://127.0.0.1:8000'
 
 export const apis = {
     getInterns: (page) => {
-        return axios.get(`${url}/interns?page=${page}`)
+        return axios.get(`${URL}/${INTERNS}?page=${page}`)
     },
     viewIntern: (id) => {
-        return axios.get(`${url}/interns/${id}`)
+        return axios.get(`${URL}/${INTERNS}/${id}`)
     },
     deleteIntern: (id) => {
-        return axios.delete(`${url}/interns/${id}`)
+        return axios.delete(`${URL}/${INTERNS}/${id}`)
 
     },
     createIntern: (values) => {
-        return axios.post(`${url}/interns`, values)
+        return axios.post(`${URL}/${INTERNS}`, values)
     },
     editIntern: (id, values) => {
-        return axios.put(`${url}/interns/${id}`, values)
+        return axios.put(`${URL}/${INTERNS}/${id}`, values)
     }
 };

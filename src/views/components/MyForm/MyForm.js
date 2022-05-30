@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Button, Form, Input, Select, DatePicker } from 'antd';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
@@ -21,6 +22,7 @@ const tailLayout = {
 };
 
 const MyForm = ({ fields, value_before_edit, onSubmit }) => {
+    const { t } = useTranslation();
     const [form] = Form.useForm();
     useEffect(() => {
         if (value_before_edit) {
@@ -87,10 +89,10 @@ const MyForm = ({ fields, value_before_edit, onSubmit }) => {
 
             <Form.Item {...tailLayout}>
                 <Button type="primary" htmlType="submit" className="mr-8">
-                    Submit
+                    {t('SUBMIT')}
                 </Button>
                 <Button htmlType="button" onClick={onReset}>
-                    Reset
+                    {t('RESET')}
                 </Button>
             </Form.Item>
         </Form>

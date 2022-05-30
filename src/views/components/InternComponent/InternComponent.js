@@ -4,10 +4,11 @@ import { EditOutlined, EyeOutlined } from '@ant-design/icons'
 import { useNavigate } from "react-router-dom";
 import Delete from "./Delete/Delete"
 import { Link } from 'react-router-dom';
-
+import { useTranslation } from 'react-i18next';
 import { apis } from '../../../API/apis';
 
 export default function InternComponent() {
+    const { t } = useTranslation();
     const [interns, setInterns] = useState([]);
     const [refresh, setRefresh] = useState(0);
     const [pagination, setPagination] = useState({
@@ -47,37 +48,37 @@ export default function InternComponent() {
 
     const columns = [
         {
-            title: 'Name',
+            title: t('NAME'),
             dataIndex: 'name',
             key: 'name',
         },
         {
-            title: 'Phone',
+            title: t('PHONE'),
             dataIndex: 'phone',
             key: 'phone',
             responsive: ['lg'],
         },
         {
-            title: 'Start Date',
+            title: t('START_DATE'),
             dataIndex: 'start_date',
             key: 'start_date',
             responsive: ['lg'],
         },
         {
-            title: 'End Date',
+            title: t('END_DATE'),
             dataIndex: 'end_date',
             key: 'end_date',
             responsive: ['lg'],
         },
         {
-            title: 'Result',
+            title: t('RESULT'),
             dataIndex: 'result',
             key: 'result',
             render: (item, { result }) => {
                 let color = result ? 'green' : 'red'
                 return (
                     <Tag color={color} key={item.key} >
-                        {result ? 'Đạt' : 'Không Đạt'}
+                        {result ? t('PASSED') : t('FAILED')}
                     </Tag >
                 );
             }
@@ -97,7 +98,6 @@ export default function InternComponent() {
                         </Link>
                         <Link to={`edit/${item.id}`}>
                             <Button className="btn-warning" icon={<EditOutlined />}>
-
                             </Button>
                         </Link>
                         <Delete refresh={refresh} setRefresh={setRefresh} item={item} />
@@ -116,11 +116,11 @@ export default function InternComponent() {
     return (
         <div>
             <div className="d-flex-between">
-                <h1>Intern</h1>
+                <h1>{t('INTERN')}</h1>
 
                 <Link to='create'>
                     <Button type="primary">
-                        Create a new intern
+                        {t('CREATE_A_NEW_INTERN')}
                     </Button>
                 </Link>
             </div>
