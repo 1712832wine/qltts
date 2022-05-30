@@ -3,7 +3,6 @@ import { Layout, Menu } from 'antd';
 import { Link } from 'react-router-dom';
 import './defaultlayout.scss'
 import { useState } from 'react';
-import { t } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { INTERNS } from '../../Constants/const'
 
